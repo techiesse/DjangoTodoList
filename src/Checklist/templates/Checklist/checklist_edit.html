@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>Novo Checklist</h1>
+<h1>Editar Checklist</h1>
 <div class="">
     <form class="" action="" method="post"> {% csrf_token %}
         {{ form.name.label }}:
         {{ form.name }}
-        <input type="submit" name="bt_submit" value="Criar">
+        <input type="submit" name="bt_submit" value="Salvar">
     </form>
+    <a href="{% url 'checklist_delete' checklist.id %}">Apagar</a>
 </div>
 <br>
 <a href="{% url 'checklist_list' %}">Voltar para a Lista</a>

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Apagando {{checklist.name}}</h1>
+<h2>Confirma ?</h2>
+<form class="" action="{%url 'checklist_delete' checklist.id %}" method="post">{% csrf_token %}
+    <input type="submit" name="bt_submit" value="Apagar">
+</form>
+<a href="{% url 'checklist_list' %}">Voltar para a Lista</a>
+{% endblock body %}

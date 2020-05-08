@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from .models import *
+from .forms import *
+
 
 def checklist_list(request):
     checklists = Checklist.objects.all()
@@ -12,11 +14,15 @@ def checklist_list(request):
 
 
 def checklist_create(request):
-    if request.method == "POST":
-        name = request.POST.get("checklist_name")
+    create_form = ChecklistForm(request.POST or None)
+    if create_form.is_valid():
+        name = create_form.cleaned_data["name"]
         checklist = Checklist.objects.create(name = name)
         return redirect("checklist_list")
-    return render(request, "Checklist/checklist_create.html")
+    context = {
+        "form": create_form,
+    }
+    return render(request, "Checklist/checklist_create.html", context)
 
 
 def checklist_detail(request, id):
@@ -28,3 +34,33 @@ def checklist_detail(request, id):
         "items": items,
     }
     return render(request, "Checklist/checklist_detail.html", context)
+
+
+def checklist_edit(request, id):
+    checklist = Checklist.objects.get(id=id)
+    form = ChecklistForm(
+        request.POST or None,
+        instance=checklist
+    )
+    if form.is_valid():
+        form.save()
+        return redirect("checklist_list")
+
+    context = {
+        "form": form,
+        "checklist": checklist,
+    }
+    return render(request, "Checklist/checklist_edit.html", context)
+
+
+def checklist_delete(request, id):
+    checklist = Checklist.objects.get(id=id)
+    if request.method == 'POST':
+        checklist.delete()
+        return redirect("checklist_list")
+
+    context = {
+        'checklist': checklist
+    }
+
+    return render(request, 'Checklist/checklist_delete.html', context)

@@ -2,11 +2,14 @@
 
 {% block body %}
 <h1>Checklists</h1>
-<ul>
+<table>
     {% for checklist in checklists %}
-    <li><a href="{% url 'checklist_detail' checklist.id %}">{{checklist.name}}</a></li>
+    <tr>
+        <td><a href="{% url 'checklist_detail' checklist.id %}">{{checklist.name}}</a></td>
+        <td><a href="{% url 'checklist_edit' checklist.id %}">Editar</a></td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 <br>
 <a href="{% url 'checklist_create' %}">Novo Checklist</a>
 {% endblock body %}
