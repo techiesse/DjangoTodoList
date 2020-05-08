@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Checklists</h1>
+<ul>
+    {% for checklist in checklists %}
+    <li><a href="{% url 'checklist_detail' checklist.id %}">{{checklist.name}}</a></li>
+    {% endfor %}
+</ul>
+<br>
+<a href="{% url 'checklist_create' %}">Novo Checklist</a>
+{% endblock body %}

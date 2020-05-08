@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>{{checklist.name}}</h1>
+<h2>Itens</h2>
+<ul>
+    {% for item in items %}
+    <li>{{item.name}}</li>
+    {% endfor %}
+</ul>
+<br>
+<a href="{% url 'checklist_list' %}">Voltar para a Lista</a>
+{% endblock body %}

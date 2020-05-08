@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>New Checklist</h1>
+<div class="">
+    <form class="" action="" method="post"> {% csrf_token %}
+        <label for="checklist_name">Nome: </label>
+        <input type="text" name="checklist_name" value="">
+        <input type="submit" name="bt_submit" value="Criar">
+    </form>
+</div>
+<br>
+<a href="{% url 'checklist_list' %}">Voltar para a Lista</a>
+{% endblock body %}
