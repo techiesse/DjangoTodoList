@@ -3,11 +3,18 @@
 {% block body %}
 <h1>{{checklist.name}}</h1>
 <h2>Itens</h2>
-<ul>
+<a href="{% url 'checklist_item_add' checklist.id %}">Adicionar</a>
+<br>
+<br>
+<table style="border-style:solid;border-collapse:collapse;">
     {% for item in items %}
-    <li>{{item.name}}</li>
+    <tr>
+        <td style="border-style:solid;border-color:Silver;">{{item.checked}}</td>
+        <td style="border-style:solid;border-color:Silver;">{{item.name}}</td>
+        <td style="border-style:solid;border-color:Silver;"><a href="#">Editar</a></td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 <br>
 <a href="{% url 'checklist_list' %}">Voltar para a Lista</a>
 {% endblock body %}

@@ -13,3 +13,8 @@ class ChecklistForm(forms.ModelForm):
         labels = {
             'name': 'Nome'
         }
+
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = ['checked', 'name', 'description']

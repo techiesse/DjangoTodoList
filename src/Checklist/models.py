@@ -5,8 +5,20 @@ from django.db import models
 class Checklist(models.Model):
     name = models.CharField(max_length = 50)
 
+
     def __str__(self):
         return f'{self.name}({self.id})'
+
+
+    def add_item(self, name, description, checked = False):
+        item = Item.objects.create(
+            name =  name,
+            description = description,
+            checked = checked,
+            checklist = self,
+        )
+        
+        return item
 
 
 class Item(models.Model):
