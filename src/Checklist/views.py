@@ -82,3 +82,9 @@ def checklist_item_add(request, id):
         'item_form': item_form,
     }
     return render(request, 'Checklist/checklist_item_add.html', context)
+
+
+def checklist_item_remove(request, checklist_id, item_id):
+    checklist = Checklist.objects.get(id = checklist_id)
+    checklist.remove_item(item_id)
+    return redirect('checklist_detail', checklist.id)

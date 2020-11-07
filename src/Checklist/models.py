@@ -17,8 +17,15 @@ class Checklist(models.Model):
             checked = checked,
             checklist = self,
         )
-        
         return item
+
+
+    def remove_item(self, item):
+        assert isinstance(item, int) or isinstance(item, Item)
+
+        item_id = item if isinstance(item, int) else item.id
+        item = self.item_set.get(id=item_id)
+        item.delete()
 
 
 class Item(models.Model):
@@ -26,3 +33,7 @@ class Item(models.Model):
     description = models.TextField(null = True, blank = True)
     checked = models.BooleanField(default = False)
     checklist = models.ForeignKey(Checklist, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return f'({self.id}) {self.name}'
