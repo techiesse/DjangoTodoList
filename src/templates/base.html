@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-bt" dir="ltr">
     <head>
@@ -7,5 +8,10 @@
     <body>
         {% block body %}
         {% endblock body %}
+
+        <script type="text/javascript" src="{% static 'node_modules/jquery/dist/jquery.js' %}"></script>
+
+        {% block jsFiles %}
+        {% endblock jsFiles %}
     </body>
 </html>

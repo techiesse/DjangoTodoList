@@ -1,0 +1,14 @@
+{
+  "name": "todolist",
+  "version": "0.0.1",
+  "description": "Todolist front end javascript packages",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Chiesse",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
+}

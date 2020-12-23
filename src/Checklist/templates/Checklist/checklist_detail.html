@@ -6,15 +6,46 @@
 <a href="{% url 'checklist_item_add' checklist.id %}">Adicionar</a>
 <br>
 <br>
-<table style="border-style:solid;border-collapse:collapse;">
-    {% for item in items %}
-    <tr>
-        <td style="border-style:solid;border-color:Silver;">{{item.checked}}</td>
-        <td style="border-style:solid;border-color:Silver;">{{item.name}}</td>
-        <td style="border-style:solid;border-color:Silver;"><a href="{% url 'checklist_item_remove' checklist.id item.id %}">Apagar</a></td>
-    </tr>
-    {% endfor %}
-</table>
+<form class="" action="index.html" method="post">{% csrf_token %}
+    <table style="border-style:solid;border-collapse:collapse;">
+        <input type="hidden" name="checklist_id" value="{{checklist.id}}">
+        {% for item in items %}
+        <tr>
+            <td style="border-style:solid;border-color:Silver;">{{item.checked}}</td>
+            <td style="border-style:solid;border-color:Silver;">
+                <input type="checkbox" name="{{item.id}}" {% if item.checked %}checked{% endif %} onclick="onItemCheck(this)">
+            </td>
+            <td style="border-style:solid;border-color:Silver;">{{item.name}}</td>
+            <td style="border-style:solid;border-color:Silver;"><a href="{% url 'checklist_item_remove' checklist.id item.id %}">Apagar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+
 <br>
+
 <a href="{% url 'checklist_list' %}">Voltar para a Lista</a>
+
 {% endblock body %}
+
+
+{% block jsFiles %}
+    <script type="text/javascript">
+        let checklistId = $('[name=checklist_id]').val()
+        function onItemCheck(item)
+        {
+            // TODO:
+            // 1 - Aplicar preventDefault para esperar a resposta da chamada AJAX.
+            // 2 - Alterar o estado do checkbox de acordo com o retorno da chamada AJAX.
+            let itemId = item.name
+            $.post(
+                '/checklists/' + checklistId + '/item/' + itemId + '/check',
+                {
+                    csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+                    checked: item.checked
+                }
+            )
+            .done(response => console.log(response))
+        }
+    </script>
+{% endblock jsFiles %}

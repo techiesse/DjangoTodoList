@@ -21,11 +21,26 @@ class Checklist(models.Model):
 
 
     def remove_item(self, item):
-        assert isinstance(item, int) or isinstance(item, Item)
+        item = self._get_item(item)
+        item.delete()
 
+
+    def check_item(self, item, checked = True):
+        item = self._get_item(item)
+        item.checked = checked
+        item.save()
+
+
+    def _get_item(self, item):
+        assert isinstance(item, int) or isinstance(item, Item)
         item_id = item if isinstance(item, int) else item.id
         item = self.item_set.get(id=item_id)
-        item.delete()
+        return item
+
+
+    def get_item(self, item_id):
+        item = self.item_set.get(id=item_id)
+        return item
 
 
 class Item(models.Model):
